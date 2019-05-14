@@ -63,7 +63,6 @@ module.exports = {
   /**
    * Prevents view from being inverted if set to true and color inversion is turned on.
    *
-   * @platform ios
    */
   accessibilityIgnoresInvertColors: PropTypes.bool,
 

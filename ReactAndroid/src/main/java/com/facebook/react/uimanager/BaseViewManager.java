@@ -17,6 +17,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.AccessibilityDelegateUtil.AccessibilityRole;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.util.ReactFindViewUtil;
+import android.os.Build;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,6 +36,7 @@ public abstract class BaseViewManager<T extends View, C extends LayoutShadowNode
   private static final String PROP_RENDER_TO_HARDWARE_TEXTURE = "renderToHardwareTextureAndroid";
   private static final String PROP_ACCESSIBILITY_LABEL = "accessibilityLabel";
   private static final String PROP_ACCESSIBILITY_HINT = "accessibilityHint";
+  private static final String PROP_ACCESSIBILITY_IGNORES_INVERT_COLORS = "accessibilityIgnoresInvertColors";
   private static final String PROP_ACCESSIBILITY_LIVE_REGION = "accessibilityLiveRegion";
   private static final String PROP_ACCESSIBILITY_ROLE = "accessibilityRole";
   private static final String PROP_ACCESSIBILITY_STATES = "accessibilityStates";
@@ -130,6 +132,13 @@ public abstract class BaseViewManager<T extends View, C extends LayoutShadowNode
   public void setAccessibilityHint(@Nonnull T view, String accessibilityHint) {
     view.setTag(R.id.accessibility_hint, accessibilityHint);
     updateViewContentDescription(view);
+  }
+
+  @ReactProp(name = PROP_ACCESSIBILITY_IGNORES_INVERT_COLORS)
+  public void setAccessibilityIgnoresInvertColors(@Nonnull T view, boolean accessibilityIgnoresInvertColors) {
+    if (Build.VERSION.SDK_INT >= 29) {
+      view.setForceDarkAllowed(!accessibilityIgnoresInvertColors);
+    }
   }
 
   @ReactProp(name = PROP_ACCESSIBILITY_ROLE)

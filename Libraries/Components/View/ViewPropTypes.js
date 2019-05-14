@@ -331,7 +331,6 @@ type IOSViewProps = $ReadOnly<{|
   /**
    * Prevents view from being inverted if set to true and color inversion is turned on.
    *
-   * @platform ios
    */
   accessibilityIgnoresInvertColors?: ?boolean,
 
